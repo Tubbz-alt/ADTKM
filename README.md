@@ -1,6 +1,4 @@
 # ADTKM
-ADTKM Disruption-Tolerant Key Management System
-
 ## Introduction
 This document describes an overview of the architectural pieces of the Disruption Tolerant Key Management (DTKM) system, their design objectives, and implementation details. The objectives and requirements will be provided to help contextualize design decisions. This report is meant to be a living development document that defines the functionality, components, and capabilities of the prototype DTKM system. The specifications in this document drive prototype development efforts; if and when it is necessary to pivot due to development roadblocks, this document will be updated to reflect the direction change and subsequent reasoning.
 
