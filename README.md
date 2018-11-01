@@ -29,10 +29,10 @@ The DTKM system is being designed to accommodate the unique characteristics of E
 
 ## Guides
 ### Installation and Configuration
-Start here. View the installation guide for how to initially get everything set up.
+Please view the [installation](./installation.md) guide for how to initially get everything set up.
 
 ### Usage
-Please view the usage guide once you have everything needed installed and configured. 
+Please view the [usage](./usage.md) guide once you have everything needed installed and configured. 
 
 ### File Structure
-Under the Beaglebone Files folder you will find folders containing the code for the wrappers, the ADC and the 61850 applications. 
+Under the [BeagleboneFiles](./BeagleboneFiles) folder you will find folders containing the code for the wrappers, the ADC and the 61850 applications. 
