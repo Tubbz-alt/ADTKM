@@ -19,11 +19,11 @@ https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/sy
 Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example: 
 
 Create spn rcmd/beaglebone1.dtkm.local and rcmd/beaglebone1 for user BEAGLEBONE1$ (this is done on the AD-DC)
-<span style="font-family:Courier New;">samba-tool spn add rcmd/beaglebone1.dtkm.local BEAGLEBONE1$</span>
-<span style="font-family:Courier New;">samba-tool spn add rcmd/beaglebone1 BEAGLEBONE1$</span>
+<span style="font-family:Courier-New;">samba-tool spn add rcmd/beaglebone1.dtkm.local BEAGLEBONE1$</span>
+<span style="font-family:CourierNew;">samba-tool spn add rcmd/beaglebone1 BEAGLEBONE1$</span>
 
 ### Export keytab
-<span style="font-family:Courier New;">
+<span style="font-family:Courier-New;">
 samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1.dtkm.local
 samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1
 </span>
