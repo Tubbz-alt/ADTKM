@@ -8,12 +8,12 @@
 Optional: Configure DNS using BIND.
 
 Throughout this document, you will see IP addresses in certain config files. Here is what they refer to: 
-172.17.0.36 – Samba server (AD DC) “suba”
+`172.17.0.36 – Samba server (AD DC) “suba”
 10.1.1.13 – Samba server (AD DC) “subb”
 172.17.0.37 – Beaglebone Black RTU/client “beaglebone3”
 172.17.0.39 – Beaglebone Black relay server “beaglebone1”
 172.17.0.40 – Beaglebone Black relay server “beaglebone2”
-172.17.100.33 – DNS server for the Beaglebone Black devices
+172.17.100.33 – DNS server for the Beaglebone Black devices`
 
 
  
