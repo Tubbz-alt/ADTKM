@@ -8,7 +8,7 @@
 On the two AD-DC boxes, use the following command:  
 `samba-tool domain trust create DOMAIN [options]`  
 
-**Helpful link:**  
+__Helpful link:__  
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_trusts  
 
 ## Setting up the keytabs
