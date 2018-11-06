@@ -13,7 +13,7 @@ Throughout this document, you will see IP addresses in certain config files. Her
 **172.17.0.39** – Beaglebone Black relay server “beaglebone1”  
 **172.17.0.40** – Beaglebone Black relay server “beaglebone2”  
 **172.17.100.33** – DNS server for the Beaglebone Black devices  
- 
+
 # Samba Server 
 **(Laptop with x86_64 architecture, running Ubuntu 16.04 in my case)**  
 
@@ -43,10 +43,8 @@ The page above goes over the prerequisites for provisioning as well as how to ve
 Helpful link:  
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_trusts  
 
-### Edit Kerberos file
-
+### /etc/krb5.conf
 Edit your kerberos config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how kerberos behaves.  
-`/etc/krb5.conf`  
 (also make sure this file is in sync with /var/lib/samba/private/krb5.conf, use ln -s)  
 
 ```
@@ -92,20 +90,17 @@ Edit your kerberos config file to match this, but change the hardcoded domain/re
         corpa.example.com = CORPA.EXAMPLE.COM
 ```
 
-### Edit Avahi Daemon File
-Doing this fixed a weird issue where things were broken, it may help or not  
 
-edit /etc/avahi/avahi-daemon.conf:  
+### /etc/avahi/avahi-daemon.conf:  
+Doing this fixed a weird issue where things were broken, it may help or not  
 ```
 [server]
 domain-name=.alocal
 ```
 
 
-### Edit SAMBA File
+### /etc/samba/smb.conf  
 Edit your samba config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how samba behaves.  
-/etc/samba/smb.conf  
-
 ```
 # Global parameters
 [global]
