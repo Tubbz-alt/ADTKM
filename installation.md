@@ -1,57 +1,54 @@
 # ADTKM Installation and Configuration Guide
 
-1. First set up the Samba AD DC servers and ensure you have Kerberos working on them. 
-2. After that you can set up a Beaglebone Black device, make sure you can join one of the domains and kinit to one the Samba servers. 
+1. First set up the Samba AD DC servers and ensure you have Kerberos working on them.  
+2. After that you can set up a Beaglebone Black device, make sure you can join one of the domains and kinit to one the Samba servers.  
 3. Build the 61850 client/server applications and put them on the according Beaglebone Blacks.
-4. Set up the CryptoCape and ADC code. 
+4. Set up the CryptoCape and ADC code.  
+5. Optional: Configure DNS using BIND.  
 
-Optional: Configure DNS using BIND.
-
-Throughout this document, you will see IP addresses in certain config files. Here is what they refer to: 
-`172.17.0.36 – Samba server (AD DC) “suba”
-10.1.1.13 – Samba server (AD DC) “subb”
-172.17.0.37 – Beaglebone Black RTU/client “beaglebone3”
-172.17.0.39 – Beaglebone Black relay server “beaglebone1”
-172.17.0.40 – Beaglebone Black relay server “beaglebone2”
-172.17.100.33 – DNS server for the Beaglebone Black devices`
-
-
+Throughout this document, you will see IP addresses in certain config files. Here is what they refer to:  
+**172.17.0.36** – Samba server (AD DC) “suba”  
+**10.1.1.13** – Samba server (AD DC) “subb”  
+**172.17.0.37** – Beaglebone Black RTU/client “beaglebone3”  
+**172.17.0.39** – Beaglebone Black relay server “beaglebone1”  
+**172.17.0.40** – Beaglebone Black relay server “beaglebone2”  
+**172.17.100.33** – DNS server for the Beaglebone Black devices  
  
-Samba Server 
-(Laptop with x86_64 architecture, running Ubuntu 16.04 in my case)
+# Samba Server 
+**(Laptop with x86_64 architecture, running Ubuntu 16.04 in my case)**  
 
-apt-get update
-apt-get upgrade
+Run these commands to install all packages needed:  
+`apt-get update`  
+`apt-get upgrade`  
+`apt-get install heimdal-clients heimdal-kcm krb5-config libkrb5-26-heimdal ssh git heimdal-dev libsasl2-modules-gssapi-heimdal git flex bison original-awk dh-autoreconf libncurses5-dev texinfo libxt-dev gcc make samba smbclient attr build-essential libacl1-dev libattr1-dev libblkid-dev libgnutls-dev libreadline-dev python-dev libpam0g-dev python-dnspython gdb pkg-config libpopt-dev libldap2-dev dnsutils libbsd-dev attr heimdal-clients docbook-xsl libcups2-dev acl winbind samba-dsdb-modules samba-vfs-modules -y`  
 
-Run this command to install all packages needed:
-apt-get install heimdal-clients heimdal-kcm krb5-config libkrb5-26-heimdal ssh git heimdal-dev libsasl2-modules-gssapi-heimdal git flex bison original-awk dh-autoreconf libncurses5-dev texinfo libxt-dev gcc make samba smbclient attr build-essential libacl1-dev libattr1-dev libblkid-dev libgnutls-dev libreadline-dev python-dev libpam0g-dev python-dnspython gdb pkg-config libpopt-dev libldap2-dev dnsutils libbsd-dev attr heimdal-clients docbook-xsl libcups2-dev acl winbind samba-dsdb-modules samba-vfs-modules -y
+## Setting up Samba
+To set up active directory with Samba, these instructions can be followed loosely:  
+https://wiki.samba.org/index.php/Setup_a_Samba_Active_Directory_Domain_Controller  
 
-Setting up Samba
+Run this command to provision the domain, follow the prompts:  
+`samba-tool domain provision --use-rfc2307 --interactive`  
 
-To set up active directory with Samba, these instructions can be followed loosely: 
-https://wiki.samba.org/index.php/Setup_a_Samba_Active_Directory_Domain_Controller
+The page above goes over the prerequisites for provisioning as well as how to verify things are working after provisioning.  
 
-Run this command to provision the domain, follow the prompts: 
-samba-tool domain provision --use-rfc2307 --interactive
+### Create users
+`samba-tool user create <name>`  
 
-The page above goes over the prerequisites for provisioning as well as how to verify things are working after provisioning. 
+### Create DNS records for your client and server devices (“A” records and reverse lookup – “PTR”)
+`samba-tool dns add <server> <zone> <name> <A|AAAA|PTR|CNAME|NS|MX|SRV|TXT|> <data>`  
 
-Create users
-samba-tool user create <name>
+### Enable cross-realm trust
+`samba-tool domain trust create DOMAIN [options]`  
 
-Create DNS records for your client and server devices (“A” records and reverse lookup – “PTR”)
-samba-tool dns add <server> <zone> <name> <A|AAAA|PTR|CNAME|NS|MX|SRV|TXT|> <data>
+Helpful link:   https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_trusts  
 
-Enable cross-realm trust
-samba-tool domain trust create DOMAIN [options]
+## Edit Kerberos file
 
-Helpful link: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_trusts
+Edit your kerberos config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how kerberos behaves.  
+`/etc/krb5.conf`  
+(also make sure this file is in sync with /var/lib/samba/private/krb5.conf, use ln -s)  
 
-Edit Kerberos file
-
-Edit your kerberos config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how kerberos behaves. 
-/etc/krb5.conf 
-(also make sure this file is in sync with /var/lib/samba/private/krb5.conf, use ln -s)
+`
 [libdefaults]
         default_realm = CORPA.EXAMPLE.COM
         dns_lookup_realm = false
@@ -92,8 +89,7 @@ Edit your kerberos config file to match this, but change the hardcoded domain/re
         corpb.example.com = CORPB.EXAMPLE.COM
         .corpa.example.com = CORPA.EXAMPLE.COM
         corpa.example.com = CORPA.EXAMPLE.COM
-
-
+`
 
 Edit Avahi Daemon File
 Doing this fixed a weird issue where things were broken, it may help or not 
