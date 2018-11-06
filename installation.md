@@ -228,22 +228,21 @@ Run with the following (same can be done for the server program):
 
 # Beaglebone Black
 
-Update kernel to bone-debian-8.3-lxqt-4gb-armhf-2016-01-24-4gb.img 
-https://debian.beagleboard.org/images/bone-debian-8.3-lxqt-4gb-armhf-2016-01-24-4gb.img.xz
+Update kernel to bone-debian-8.3-lxqt-4gb-armhf-2016-01-24-4gb.img  
+https://debian.beagleboard.org/images/bone-debian-8.3-lxqt-4gb-armhf-2016-01-24-4gb.img.xz  
 
-Run these commands to update your packages to the latest versions:
-apt-get update	
-apt-get upgrade
+Run these commands to update your packages to the latest versions:  
+`apt-get update`  
+`apt-get upgrade`  
 
-Run this command to install the packages needed going forward:
-apt-get install heimdal-clients heimdal-kcm krb5-config libkrb5-26-heimdal ssh git heimdal-dev libsasl2-modules-gssapi-heimdal git flex bison original-awk dh-autoreconf libncurses5-dev texinfo libXt-dev gcc make sqlite3 samba
+Run this command to install the packages needed going forward:  
+`apt-get install heimdal-clients heimdal-kcm krb5-config libkrb5-26-heimdal ssh git heimdal-dev libsasl2-modules-gssapi-heimdal git flex bison original-awk dh-autoreconf libncurses5-dev texinfo libXt-dev gcc make sqlite3 samba`  
 
+## KRB5 config file
+Edit your kerberos config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how kerberos behaves.  
 
-
-KRB5 config file
-Edit your kerberos config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how kerberos behaves. 
-
-/etc/krb5.conf
+### /etc/krb5.conf  
+```
 [logging]
 	default=STDERR
 
@@ -284,13 +283,13 @@ Edit your kerberos config file to match this, but change the hardcoded domain/re
         corpb.example.com = CORPB.EXAMPLE.COM
         .corpa.example.com = CORPA.EXAMPLE.COM
 	corpa.example.com = CORPA.EXAMPLE.COM
+```
 
+## SAMBA
+Edit your samba config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how samba behaves.  
 
-
-SAMBA
-Edit your samba config file to match this, but change the hardcoded domain/realm info to what your domain/realm config is. This file controls how samba behaves.
-
-/etc/samba/smb.conf
+### /etc/samba/smb.conf  
+```
 [global]
         workgroup = CORPB
         realm = CORPB.EXAMPLE.COM
@@ -310,26 +309,28 @@ Edit your samba config file to match this, but change the hardcoded domain/realm
 [sysvol]
         path = /var/lib/samba/sysvol
         read only = No
+```
 
-Then run:
-/etc/init.d/samba restart
+Then run:  
+`/etc/init.d/samba restart`  
 
-To attempt to join the domain, use this command: 
-net ads join -k
+To attempt to join the domain, use this command:  
+`net ads join -k`  
 
-Useful link for configuring PKINIT in Samba, if you need it: 
-https://wiki.samba.org/index.php/Samba_AD_Smart_Card_Login#Edit_the_Samba_KDC_Configuration_File_to_Enable_PKINIT_Authentication
+Useful link for configuring PKINIT in Samba, if you need it:  
+https://wiki.samba.org/index.php/Samba_AD_Smart_Card_Login#Edit_the_Samba_KDC_Configuration_File_to_Enable_PKINIT_Authentication  
 
+## Network config files
+Edit your network config files to match this, but change the hardcoded ip/gateway/dns info to what your domain/realm config is. These files control how the networking on the machine works.  
 
-
-Network config files
-Edit your network config files to match this, but change the hardcoded ip/gateway/dns info to what your domain/realm config is. These files control how the networking on the machine works.
-
-/etc/resolv.conf
+### /etc/resolv.conf  
+```
 nameserver 172.17.100.33
 search example.com
+```
 
-/etc/network/interfaces 
+### /etc/network/interfaces 
+```
 auto lo
 iface lo inet loopback
 
@@ -346,8 +347,10 @@ iface usb0 inet static
     netmask 255.255.255.252
     network 192.168.7.0
     gateway 192.168.7.1
+```
 
-/etc/hosts
+### /etc/hosts
+```
 127.0.0.1	localhost
 127.0.1.1	beaglebone3.corpb.example.com beaglebone3
 172.17.0.36	SUBA.corpa.example.com SUBA
@@ -355,86 +358,84 @@ iface usb0 inet static
 172.17.0.39     beaglebone1.corpa.example.com beaglebone1
 172.17.0.40	beaglebone2.corpc.example.com beaglebone2
 10.1.1.13	SUBB.corpb.example.com SUBB
+```
 
+## Creating certs using custom private key (pr.pem) - For PKINIT
+This demonstrates how to create the necessary files for PKINIT and how to test it.  
 
-
-Creating certs using custom private key (pr.pem) - For PKINIT
-This demonstrates how to create the necessary files for PKINIT and how to test it. 
-
---- USER ---
-Remove passphrase
-openssl rsa -in pr.pem -out key.pem
+### --- USER ---
+Remove passphrase  
+`openssl rsa -in pr.pem -out key.pem`
 	
-RSA KEY -> CSR (Certificate Signing Request, by user, declaring what user) 
-openssl req -out csr.csr -key key.pem -new -subj "/UID=root/DC=dtkm/DC=net" 
+### RSA KEY -> CSR 
+(Certificate Signing Request, by user, declaring what user)  
+`openssl req -out csr.csr -key key.pem -new -subj "/UID=root/DC=dtkm/DC=net"`  
 
-Send CSR to AD DC
+* Send CSR to AD DC  
 
---- AD DC ---
-Verify CSR - read what the CSR contains
-openssl req -text -noout -verify -in csr.csr 
+### --- AD DC ---
+Verify CSR - read what the CSR contains  
+`openssl req -text -noout -verify -in csr.csr`  
 
-CSR -> CRT  (CA sign the CSR)
-openssl x509 -req -in csr.csr -CA ca.pem -out crt.crt -CAcreateserial -CAserial ca.seq -CA ca.pem
+### CSR -> CRT  
+(CA sign the CSR)  
+`openssl x509 -req -in csr.csr -CA ca.pem -out crt.crt -CAcreateserial -CAserial ca.seq -CA ca.pem`
 
-Send CRT back to User
-scp crt.crt root@130.20.79.15:/home/heimdal
+### Send CRT back to User  
+`scp crt.crt root@130.20.79.15:/home/heimdal`  
 
---- USER ---
-Combine crt/key into pem file - optional
-touch user.pem
-cat crt.crt>>user.pem
-cat key.pem>>user.pem
+### --- USER ---
+Combine crt/key into pem file - optional   
+`touch user.pem`  
+`cat crt.crt>>user.pem`  
+`cat key.pem>>user.pem`  
 
-Pkinit
-kinit -C FILE:user.pem 
-OR, without combining files
-kinit -C FILE:crt.crt,key.pem
+### Pkinit
+`kinit -C FILE:user.pem`  
+OR, without combining files  
+`kinit -C FILE:crt.crt,key.pem`
 
+## Setting up the keytabs
+Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example:  
 
+### Create spn rcmd/beaglebone1.dtkm.local and rcmd/beaglebone1 for user BEAGLEBONE1$
+(this is done on the AD-DC)  
+`samba-tool spn add rcmd/beaglebone1.dtkm.local BEAGLEBONE1$`  
+`samba-tool spn add rcmd/beaglebone1 BEAGLEBONE1$`  
 
-Setting up the keytabs
-Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example: 
+### Export keytab
+`samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1.dtkm.local`  
+`samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1`  
 
-Create spn rcmd/beaglebone1.dtkm.local and rcmd/beaglebone1 for user BEAGLEBONE1$
-(this is done on the AD-DC)
-samba-tool spn add rcmd/beaglebone1.dtkm.local BEAGLEBONE1$
-samba-tool spn add rcmd/beaglebone1 BEAGLEBONE1$
+### Move to BBB, merge with /etc/krb5.keytab
+`ktutil copy mykeytab-1 /etc/krb5.keytab`  
 
-Export keytab
-samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1.dtkm.local
-samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1
+run  
+`kinit`  
+`net ads join -k`  
 
-Move to BBB, merge with /etc/krb5.keytab
-ktutil copy mykeytab-1 /etc/krb5.keytab
-
-run 
-kinit 
-net ads join -k
-
-To check, run 
-ktutil -k /etc/krb5.keytab list
-
-
-
-61850 Server/Client application
-How to prepare the 61850 server and client applications. 
-
-Get 61850 SystemCorp license and libraries from here: https://www.systemcorp.com.au/products/smart-grid-software/iec-61850/
-The license needs to be in the same folder as the client/server applications.
-Each individual license pertains to a specific MAC address.
-C libraries needed: lpthread, lrt, lm, and ldl
-
-How to build server/client applications from the code:
-gcc -I/home/BBB/examples/header -I/home/BBB/header -I/home/node_modules/sqlite3/build/Release/obj/gen/sqlite-autoconf-3150000 MainServer.c /home/BBB/lib/libPIS10V2.a /home/BBB/lib/libpcap.a PrintView.c UserInput.c IEC61850Functions.c LocalData.c PIS10CreateServerClient.c PIS10Callbacks.c spi_thread.c sqlite3.c -o /home/BBB/lib/server -lpthread -lrt -lm -lsqlite3 -ldl
+To check, run  
+`ktutil -k /etc/krb5.keytab list`  
 
 
+## 61850 Server/Client application
+How to prepare the 61850 server and client applications.  
 
-CryptoCape and ADC
-How to setup the CryptoCape and ADC code.
+Get 61850 SystemCorp license and libraries from here:   https://www.systemcorp.com.au/products/smart-grid-software/iec-61850/  
+The license needs to be in the same folder as the client/server applications.  
+Each individual license pertains to a specific MAC address.  
+C libraries needed: `lpthread, lrt, lm, and ldl`  
 
-Installing CryptoCape + tools needed
-Step by step procedures
+How to build server/client applications from the code:  
+`gcc -I/home/BBB/examples/header -I/home/BBB/header -I/home/node_modules/sqlite3/build/Release/obj/gen/sqlite-autoconf-3150000 MainServer.c /home/BBB/lib/libPIS10V2.a /home/BBB/lib/libpcap.a PrintView.c UserInput.c IEC61850Functions.c LocalData.c PIS10CreateServerClient.c PIS10Callbacks.c spi_thread.c sqlite3.c -o /home/BBB/lib/server -lpthread -lrt -lm -lsqlite3 -ldl`
+
+
+## CryptoCape and ADC
+How to setup the CryptoCape and ADC code.  
+Installing CryptoCape + tools needed  
+Step by step procedures  
+
+```
 Before installing CryptoCape, make sure beaglebone is connected to internet
 •	apt-get update
 •	apt-get install tpm-tools
@@ -578,26 +579,24 @@ Confirm password:
 o	87654321 -> I use this
 •	Tokens will be found here:
 o	/var/lib/opencryptoki/tpm/root/
+``` 
 
+# DNS Server
 
+Setting up DNS  
+`apt install bind9`  
 
- 
- 
- 
-DNS Server
-
-Setting up DNS
-apt install bind9
-
-/etc/default/bind9
+### /etc/default/bind9
+```
 # run resolvconf?
 RESOLVCONF=no
 
 # startup options for the server
 OPTIONS="-u bind"
+```
 
-
-/etc/bind/named.conf
+### /etc/bind/named.conf
+```
 // This is the primary configuration file for the BIND DNS server named.
 //
 // Please read /usr/share/doc/bind9/README.Debian.gz for information on the 
@@ -678,8 +677,10 @@ view "internal" {
     forwarders { 192.168.0.14; };
   };
 };
+```
 
-/etc/bind/named.conf.options
+### /etc/bind/named.conf.options
+```
 options {
 	directory "/var/cache/bind";
 
@@ -705,8 +706,10 @@ options {
 	auth-nxdomain no;    # conform to RFC1035
 	listen-on-v6 { any; };
 };
+```
 
-/etc/bind/named.conf.default-zones
+### /etc/bind/named.conf.default-zones
+```
 // prime the server with knowledge of the root servers
 zone "." {
 	type hint;
@@ -735,5 +738,5 @@ zone "255.in-addr.arpa" {
 	type master;
 	file "/etc/bind/db.255";
 };
-
+```
 
