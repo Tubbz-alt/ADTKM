@@ -49,7 +49,8 @@ Edit your kerberos config file to match this, but change the hardcoded domain/re
 `/etc/krb5.conf`  
 (also make sure this file is in sync with /var/lib/samba/private/krb5.conf, use ln -s)  
 
-`[libdefaults]
+```
+[libdefaults]
         default_realm = CORPA.EXAMPLE.COM
         dns_lookup_realm = false
         dns_lookup_kdc = true
@@ -88,7 +89,8 @@ Edit your kerberos config file to match this, but change the hardcoded domain/re
         .corpb.example.com = CORPB.EXAMPLE.COM
         corpb.example.com = CORPB.EXAMPLE.COM
         .corpa.example.com = CORPA.EXAMPLE.COM
-        corpa.example.com = CORPA.EXAMPLE.COM`
+        corpa.example.com = CORPA.EXAMPLE.COM
+```
 
 Edit Avahi Daemon File
 Doing this fixed a weird issue where things were broken, it may help or not 
