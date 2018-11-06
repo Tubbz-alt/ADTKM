@@ -40,7 +40,8 @@ The page above goes over the prerequisites for provisioning as well as how to ve
 ### Enable cross-realm trust
 `samba-tool domain trust create DOMAIN [options]`  
 
-Helpful link:   https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_trusts  
+Helpful link:  
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_trusts  
 
 ## Edit Kerberos file
 
@@ -48,8 +49,7 @@ Edit your kerberos config file to match this, but change the hardcoded domain/re
 `/etc/krb5.conf`  
 (also make sure this file is in sync with /var/lib/samba/private/krb5.conf, use ln -s)  
 
-`
-[libdefaults]
+`[libdefaults]
         default_realm = CORPA.EXAMPLE.COM
         dns_lookup_realm = false
         dns_lookup_kdc = true
@@ -88,8 +88,7 @@ Edit your kerberos config file to match this, but change the hardcoded domain/re
         .corpb.example.com = CORPB.EXAMPLE.COM
         corpb.example.com = CORPB.EXAMPLE.COM
         .corpa.example.com = CORPA.EXAMPLE.COM
-        corpa.example.com = CORPA.EXAMPLE.COM
-`
+        corpa.example.com = CORPA.EXAMPLE.COM`
 
 Edit Avahi Daemon File
 Doing this fixed a weird issue where things were broken, it may help or not 
