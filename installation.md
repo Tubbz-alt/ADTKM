@@ -31,10 +31,10 @@ Run this command to provision the domain, follow the prompts:
 
 The page above goes over the prerequisites for provisioning as well as how to verify things are working after provisioning.  
 
-### Create users
+### Create users  
 `samba-tool user create <name>`  
 
-### Create DNS records for your client and server devices (“A” records and reverse lookup – “PTR”)
+### Create DNS records for your client and server devices (“A” records and reverse lookup – “PTR”)  
 `samba-tool dns add <server> <zone> <name> <A|AAAA|PTR|CNAME|NS|MX|SRV|TXT|> <data>`  
 
 ### Enable cross-realm trust
