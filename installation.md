@@ -215,6 +215,9 @@ hxtool crl-sign \
 ### Creating user cert, or refer to other section above
 `hxtool issue-certificate --ca-certificate=FILE:ca.pem --generate-key=rsa --type="pkinit-client" --pk-init-principal="root@CORPB.EXAMPLE.COM" --subject="uid=root,DC=corpb,DC=example,DC=com" --crl-uri="crl.der" --certificate="FILE:root.pem"`  
 
+## Eit CID files
+Within the Relay Server and RTU folders, there is a subfolder called cidFiles. The files within contain references to the devices' IP and MAC addresses. You must change these to reflect your setup, otherwise the programs will not run correctly.
+
 ## 61850 LD_PRELOAD
 Download the code and change any hardcoded IP or FQDN references within to match your situation.  
 Build with “make” command.  
