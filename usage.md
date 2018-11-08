@@ -32,7 +32,7 @@ run
 To check, run  
 `ktutil -k /etc/krb5.keytab list`  
 
-## Eit CID files
+## Edit CID files
 Within the Relay Server and RTU folders, there is a subfolder called cidFiles. The files within contain references to the devices' IP and MAC addresses. You must change these to reflect your setup, otherwise the programs will not run correctly. 
 
 ## 61850 LD_PRELOAD
