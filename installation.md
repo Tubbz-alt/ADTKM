@@ -4,8 +4,8 @@ This guide will help you get the various devices set up from ground zero. The on
 1. First set up the [Samba AD DC](#samba-server) servers and ensure you have Kerberos working on them.  
 2. After that you can set up a [Beaglebone Black](#beaglebone-black) device, make sure you can join one of the domains and kinit to one the Samba servers.  
 3. Build the [61850 client/server applications](#61850-LD_PRELOAD) and put them on the according Beaglebone Blacks.  
-4. Set up the [CryptoCape and ADC](CryptoCape-and-ADC) code.  
-5. Optional: Configure DNS using [BIND](DNS-Server).  
+4. Set up the [CryptoCape and ADC](#CryptoCape-and-ADC) code.  
+5. Optional: Configure DNS using [BIND](#DNS-Server).  
 
 Throughout this document, you will see IP addresses in certain config files. Here is what they refer to:  
 **172.17.0.36** – Samba server (AD DC) “suba”  
