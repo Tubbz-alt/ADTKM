@@ -21,7 +21,7 @@ Instructions found [HERE](./installation.md#samba-server)
 Instructions found [HERE](./installation.md#beaglebone-black)  
 
 ### Configure the device appropriately.  
-Instructions found [HERE](./configuration.md)  
+Instructions found in the links above and further tips found [HERE](./configuration.md)  
 
 Once the Samba servers and beaglebone black devices are set up with all necessary tools installed and configured, continue.  
 
@@ -37,7 +37,7 @@ Note: server1 and server2 are to be run on the two separate devices.
 ### Starting the clients
 On the RTU device, navigate to the `BeagleboneFiles/RTU/lib/` folder.  
 Use `LD_PRELOAD` when launching the client applications, referencing the `client.o` files in the `BeagleboneFiles/SASL_Wrapper/` folder.  
-Example: `LD_PRELOAD=/BeagleboneFiles/SASL_Wrapper/client1.o ./client1_binary`
+Example: `LD_PRELOAD=/BeagleboneFiles/SASL_Wrapper/client1.o ./client1_binary`  
 
 This will start the client applications, where they will look for the server applications that are awaiting their connection.  
 Note: client1 and client2 are to be run on the same, single RTU device.  
