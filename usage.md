@@ -1,4 +1,5 @@
 # ADTKM Usage Guide
+This guide will give examples for commonly used commands and features that come with the installed packages needed for the project. You can get a feel for the functionality here and either conduct your own tests or follow the [walkthrough](./walkthrough.md) we put together.
 
 1. Refer to the installation and configuration guide to get everything set up properly. 
 2. Set up cross-realm trust between the two servers. This will also require you to set up keytabs.
@@ -40,5 +41,3 @@ Download the code and change any hardcoded IP or FQDN references within to match
 Build with “make” command.  
 Run with the following (same can be done for the server program):  
 `LD_PRELOAD=/path/to/client.o ./binary `  
-
-

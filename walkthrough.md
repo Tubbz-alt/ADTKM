@@ -1,7 +1,7 @@
 # Experiment Walkthrough Guide
-For this experiment, we are going to test the encrypted communication between two devices running relay servers and another device acting as an RTU, while simultaneously testing that cross-realm trust and authentication is properly being enforced via Samba policies and Kerberos, respectively. 
+For this experiment, we are going to test the encrypted communication between two devices running relay servers and another device acting as an RTU, while simultaneously testing that cross-realm trust and authentication is properly being enforced via Samba policies and Kerberos, respectively.  
 
-This guide will walk you through the steps needed to run the experiment, given that you have the required materials and have configured them correctly. The instructions for how to setup the devices can be found in hotlinks below. 
+This guide will walk you through the steps needed to run the experiment, given that you have the required materials and have configured them correctly. The instructions for how to setup the devices can be found in hotlinks below.  
 
 ## Materials needed: 
 * 3 Beaglebone Black devices, each with their own 61850 application license. 
