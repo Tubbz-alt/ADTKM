@@ -1,11 +1,10 @@
-# ADTKM Usage Guide
+# ADTKM Usage Examples
 This guide will give examples for commonly used commands and features that come with the installed packages needed for the project. You can get a feel for the functionality here and either conduct your own tests or follow the [walkthrough](./walkthrough.md) we put together.
 
-1. Refer to the installation and configuration guide to get everything set up properly. 
-2. Set up cross-realm trust between the two servers. This will also require you to set up keytabs.
-3. The wrapper can be used using `LD_PRELOAD`. 
+## Configuring Samba
+Use the `samba-tool` command to bring up the configuration menu for Samba. This will let you control everything about Samba that you should ever need to tweak. 
 
-## Enable cross-realm trust
+## Enabling cross-realm trust
 On the two AD-DC boxes, use the following command:  
 `samba-tool domain trust create DOMAIN [options]`  
 
@@ -19,7 +18,7 @@ Keytabs need to be exported in order to make sure permissions are properly grant
 `samba-tool spn add rcmd/beaglebone1.dtkm.local BEAGLEBONE1$`  
 `samba-tool spn add rcmd/beaglebone1 BEAGLEBONE1$`  
 
-### Export keytab
+### Exporting keytab
 `samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1.dtkm.local`  
 `samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1`  
 
@@ -33,7 +32,7 @@ run
 To check, run  
 `ktutil -k /etc/krb5.keytab list`  
 
-## Edit CID files
+## Editing CID files
 Within the Relay Server and RTU folders, there is a subfolder called cidFiles. The files within contain references to the devices' IP and MAC addresses. You must change these to reflect your setup, otherwise the programs will not run correctly. 
 
 ## 61850 LD_PRELOAD
