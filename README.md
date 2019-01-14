@@ -29,8 +29,8 @@ The DTKM system is being designed to accommodate the unique characteristics of E
 ### Installation and Configuration
 View the [installation](./installation.md) guide for how to initially get the devices set up from ground zero. This will walk you through installing the packages needed and making modifications to configuration files and the like.  
 
-### Usage
-View the [usage](./usage.md) guide once you have everything installed. This will teach you basic usage commands if you want to experiment with the devices yourself.  
+### Further Configuration
+View the [configuration](./configuration.md) guide once you have everything installed. This will teach you basic commands on how to further configure the devices, which you might need to do depending on how you want the devices to function. Understanding these configuration options are important if you want to experiment with the devices yourself.  
 
 ### Experiment Walkthrough
 View the step-by-step [walkthrough](./walkthrough.md) if you would like to replicate testing the communication and encryption in the way we did. This walkthrough assumes you have installed and configured the devices appropriately and that you are somewhat familiar with the basic usage commands.  

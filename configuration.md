@@ -1,5 +1,5 @@
-# ADTKM Usage Examples
-This guide will give examples for commonly used commands and features that come with the installed packages needed for the project. You can get a feel for the functionality here and either conduct your own tests or follow the [walkthrough](./walkthrough.md) we put together.
+# ADTKM Further Configuration
+This guide will showcase how to further configure the devices once everything is installed. These tweaks could be necessary for you depending on how you want the devices to function. You can get a feel for the functionality here and either conduct your own tests or continue onto the [walkthrough](./walkthrough.md) we put together.
 
 ## Configuring Samba
 Use the `samba-tool` command to bring up the configuration menu for Samba. This will let you control everything about Samba that you should ever need to tweak. 

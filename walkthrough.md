@@ -20,6 +20,9 @@ Instructions found [HERE](./installation.md#samba-server)
 ### Set up three beaglebone black devices.
 Instructions found [HERE](./installation.md#beaglebone-black)  
 
+### Configure the device appropriately.  
+Instructions found [HERE](./configuration.md)  
+
 Once the Samba servers and beaglebone black devices are set up with all necessary tools installed and configured, continue.  
 
 ## Running the applications
