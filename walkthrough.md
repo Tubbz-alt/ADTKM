@@ -51,3 +51,5 @@ This will start the RTU application.
 
 ### Testing success
 Once the applications are started, you can refresh the screen by hitting the `[Enter]` key on your keyboard, while the applications are the active program. If the client/server refresh to display the same values, that means they are properly communicating. If you ran the applications with the SASL wrapper (in other words, if you used `LD_PRELOAD`), that means the kerberos authentication was a success and you have cross-realm trust working correctly.  
+
+You can use additional tools such as `tcpdump` to capture the traffic while the 61850 applications are running. Wireshark could then be used to investigate the contents of the output of `tcpdump`. 
