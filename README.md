@@ -26,14 +26,14 @@ The DTKM system is being designed to accommodate the unique characteristics of E
 * **Increase assurance of third party connectivity** – Process control networks often require third party access to equipment both during emergencies and for regular maintenance. The DTKM system allows utilities to enable third party access to equipment through out-of-band processes.
 
 ## Guides
-### Installation and Configuration
-View the [installation](./installation.md) guide for how to initially get the devices set up from ground zero. This will walk you through installing the packages needed and making modifications to configuration files and the like.  
-
-### Further Configuration
-View the [configuration](./configuration.md) guide once you have everything installed. This will teach you basic commands on how to further configure the devices, which you might need to do depending on how you want the devices to function. Understanding these configuration options are important if you want to experiment with the devices yourself.  
+### SASL Wrapper
+asdf  
 
 ### Experiment Walkthrough
 View the step-by-step [walkthrough](./walkthrough.md) if you would like to replicate testing the communication and encryption in the way we did. This walkthrough assumes you have installed and configured the devices appropriately and that you are somewhat familiar with the basic usage commands.  
 
 ### File Structure
 Under the [BeagleboneFiles](./BeagleboneFiles) folder you will find folders containing the code for the wrappers, the ADC and the 61850 applications.  
+
+### Related Technologies
+BRO stuff

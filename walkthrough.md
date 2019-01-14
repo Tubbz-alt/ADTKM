@@ -1,5 +1,5 @@
 # Experiment Walkthrough Guide
-For this experiment, we are going to test the encrypted communication between two devices running relay servers and another device acting as an RTU, while simultaneously testing that cross-realm trust and authentication is properly being enforced via Samba policies and Kerberos, respectively.  
+For this experiment, we are going to test the encrypted communication between two devices acting as relay servers and another device acting as an RTU, while simultaneously testing that cross-realm trust and authentication is properly being enforced via Samba policies and Kerberos, respectively.  
 
 This guide will walk you through the steps needed to run the experiment, given that you have the required materials and have configured them correctly. The instructions for how to setup the devices can be found in hotlinks below.  
 
@@ -12,6 +12,8 @@ This guide will walk you through the steps needed to run the experiment, given t
 One of the Samba servers will act as the central server, and the other as the field device. The configuration differences between the two Samba servers is limited to the server/realm names, which beaglebone devices join which server's domain, and the DNS records within the Samba settings should you choose to use Samba for DNS.  
 
 Two of the beaglebone black devices will act as relay servers, where the third will be the RPC. The two relay servers will join the domain for the central server, while the RPC will join the domain for the field device.  
+
+![Network Mapping](./adtkm_1.png)  
 
 ## Setting up the devices
 ### Set up two devices that will act as AD DCs running Samba Server. 
