@@ -27,13 +27,14 @@ The DTKM system is being designed to accommodate the unique characteristics of E
 
 ## Guides
 ### SASL Wrapper
-asdf  
+If you are interested in our SASL wrapper, view the [guide](./saslwrapper.md) which will explain what it does, what it needs in order to function properly, and how to use it.  
 
 ### Experiment Walkthrough
-View the step-by-step [walkthrough](./walkthrough.md) if you would like to replicate testing the communication and encryption in the way we did. This walkthrough assumes you have installed and configured the devices appropriately and that you are somewhat familiar with the basic usage commands.  
+View the [walkthrough](./walkthrough.md) if you would like to replicate testing the communication and encryption in the way we did. This walkthrough assumes you have installed and configured the devices appropriately and that you are somewhat familiar with the basic usage commands.  
 
 ### File Structure
 Under the [BeagleboneFiles](./BeagleboneFiles) folder you will find folders containing the code for the wrappers, the ADC and the 61850 applications.  
 
-### Related Technologies
-BRO stuff
+### Utilized Technologies
+Zeek (formerly Bro) - open-source network analysis framework. 
+More info can be found on this github page:  [https://github.com/lbnl-cybersecurity/dtkm-sparcs](https://github.com/lbnl-cybersecurity/dtkm-sparcs)  
