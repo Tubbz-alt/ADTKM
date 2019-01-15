@@ -11,20 +11,20 @@ For the wrapper to agree that authentication between the devices was successful,
 Both devices have installed and configured Kerberos. We used [Heimdal](https://www.h5l.org/)
 
 ### Configure Keytabs
-Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example using Samba:  
+Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example using Samba (beaglebone1 is the server in this case):  
 
-#### Create spn rcmd/beaglebone1.dtkm.local and rcmd/beaglebone1 for user BEAGLEBONE1$
+* Create spn rcmd/beaglebone1.dtkm.local and rcmd/beaglebone1 for user BEAGLEBONE1$
 `samba-tool spn add rcmd/beaglebone1.dtkm.local BEAGLEBONE1$`  
 `samba-tool spn add rcmd/beaglebone1 BEAGLEBONE1$`  
 
-#### Export the keytab
+* Export the keytab
 `samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1.dtkm.local`  
 `samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1`  
 
-#### Merge the keytab with /etc/krb5.keytab  
+* Merge the keytab with /etc/krb5.keytab  
 `ktutil copy mykeytab-1 /etc/krb5.keytab`  
 
-#### Verify
+* Verify
 `ktutil -k /etc/krb5.keytab list`  
 
 ### Cross-Realm Trust
@@ -36,7 +36,7 @@ For more info on this, take a look at this helpful link:
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_trusts
 
 ## SASL Wrapper Files
-The code for the wrapper can be found [HERE](./BeagleboneFiles/SASL Wrapper/)  
+The code for the wrapper can be found [HERE](./BeagleboneFiles/SASL_Wrapper)  
 This folder has all that is needed to get started.  
 
 ## Usage
