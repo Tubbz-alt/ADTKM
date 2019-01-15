@@ -11,20 +11,20 @@ For the wrapper to agree that authentication between the devices was successful,
 Both devices have installed and configured Kerberos. We used [Heimdal](https://www.h5l.org/)
 
 ### Configure Keytabs
-Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example using Samba (beaglebone1 is the server in this case):  
+Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example using Samba (beaglebone1 is the server in this case, where BEAGLEBONE1$ is the machine ID and beaglebone1.dtkm.local is the fqdn):  
 
-* Create spn rcmd/beaglebone1.dtkm.local and rcmd/beaglebone1 for user BEAGLEBONE1$
+* Create spn rcmd/beaglebone1.dtkm.local and rcmd/beaglebone1 for user BEAGLEBONE1$  
 `samba-tool spn add rcmd/beaglebone1.dtkm.local BEAGLEBONE1$`  
 `samba-tool spn add rcmd/beaglebone1 BEAGLEBONE1$`  
 
-* Export the keytab
+* Export the keytab  
 `samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1.dtkm.local`  
 `samba-tool domain exportkeytab mykeytab-1 --principal=rcmd/beaglebone1`  
 
 * Merge the keytab with /etc/krb5.keytab  
 `ktutil copy mykeytab-1 /etc/krb5.keytab`  
 
-* Verify
+* Verify  
 `ktutil -k /etc/krb5.keytab list`  
 
 ### Cross-Realm Trust
