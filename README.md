@@ -25,7 +25,7 @@ The DTKM system is being designed to accommodate the unique characteristics of E
 * **Centralize cryptographic material generation** – A common challenge within EDSs is maintaining the ability for field devices to support necessary levels of cryptographic security. EDS equipment is often designed to last decades; over time, maintaining up-to-date security postures can be difficult. Two areas in particular lack updateability for future security: having the resource capacity to perform advanced cryptography, and having the necessary amount of high entropy data available for performing the number of cryptographic actions. One of the most resource-consuming tasks is the generation of asymmetric keys. Offloading key generation removes this risk by utilizing an updatable platform design to generate large quantities of entropy data.
 * **Increase assurance of third party connectivity** – Process control networks often require third party access to equipment both during emergencies and for regular maintenance. The DTKM system allows utilities to enable third party access to equipment through out-of-band processes.
 
-## Guides
+## Guides / Other Information
 ### SASL Wrapper
 If you are interested in our SASL wrapper, view the [guide](./saslwrapper.md) which will explain what it does, what it needs in order to function properly, and how to use it.  
 

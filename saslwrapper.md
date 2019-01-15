@@ -8,7 +8,7 @@ The functionality of the wrapper is to ensure that two applications (a client an
 For the wrapper to agree that authentication between the devices was successful, a few things need to be set up properly.  
 
 ### Install and Configure Kerberos  
-Both devices have installed and configured Kerberos. We used [Heimdal](https://www.h5l.org/)
+Both devices have installed and configured Kerberos. We used [Heimdal](https://www.h5l.org/).
 
 ### Configure Keytabs
 Keytabs need to be exported in order to make sure permissions are properly granted for certain users to access certain services. Here is an example using Samba (beaglebone1 is the server in this case, where BEAGLEBONE1$ is the machine ID and beaglebone1.dtkm.local is the fqdn):  
